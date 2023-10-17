@@ -55,14 +55,20 @@ public class UserService {
 	
 	public static boolean registerNewCourse(User user, Course course) {
 		if (!Objects.isNull(user.getRegisteredCourse())) {
-			for (Course registeredCourse:user.getRegisteredCourse()) {
-				if (registeredCourse.getId() == course.getId()) {
-					return (false);
-				}
+			if (checkRegisteredCourseCourse(user, course)==false) {
+				return (false);
 			}
 		}	
 		user.addNewCourse(course);
 		return (true);
 		
+	}
+	public static boolean checkRegisteredCourseCourse(User user, Course course) {
+		for (Course registeredCourse:user.getRegisteredCourse()) {
+			if (registeredCourse.getId() == course.getId()) {
+				return (false);
+			}
+		}
+		return (true);
 	}
 }
